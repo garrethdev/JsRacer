@@ -11,7 +11,7 @@ window.onload = function() {
       firstTrack[position >= 0 ? position - 1 : firstTrack.length - 1]
       .classList.remove("active");
         if (position === firstTrack.length - 1) { 
-          endGamePlayer()
+          endGame(true)
         }
     }        
     callbackFunction()
@@ -24,30 +24,39 @@ window.onload = function() {
 
     clickFunction(computerPlayer)
   } 
-
 };
-  var compPosition = 0
-  function computerPlayer () { 
-    setInterval(function() { 
-      compPosition = (compPosition === secondTrack.length -1 ? 0 : compPosition + 1 )
-      secondTrack[compPosition].classList.add("active"); 
-      secondTrack[compPosition > 0 ? compPosition -1: secondTrack.length  -1 ]
-      .classList.remove("active")
-        if (compPosition === secondTrack.length - 1) { 
-          endGamePc()
-        } 
-          
-        }, 200 );
-  };
 
-  endGamePlayer = function () {
-    alert("Congrats on Winning the Game!")
-    location.reload(true);
-  };
-  endGamePc = function () { 
-    alert("Sorry the Computer bested you this time!")
-    location.reload(true); 
-  };
+var movement = function(track, position, player)  {
+  compPosition = (compPosition === secondTrack.length -1 ? 0 : compPosition + 1 )
+  secondTrack[compPosition].classList.add("active"); 
+  secondTrack[compPosition > 0 ? compPosition -1: secondTrack.length  -1 ]
+  .classList.remove("active")
+  if (compPosition === secondTrack.length - 1) { 
+    endGame()
+  } 
 
-  
-  
+}
+
+var compPosition = 0
+function computerPlayer () { 
+  setInterval(function() { 
+    compPosition = (compPosition === secondTrack.length -1 ? 0 : compPosition + 1 )
+    secondTrack[compPosition].classList.add("active"); 
+    secondTrack[compPosition > 0 ? compPosition -1: secondTrack.length  -1 ]
+    .classList.remove("active")
+      if (compPosition === secondTrack.length - 1) { 
+        endGame()
+      } 
+        
+      }, 200 );
+};
+
+endGame = function (isplayer) { 
+  message = isplayer ? "Congrats on Winning the Game!" : "Sorry the Computer bested you this time!"
+  alert(message)
+  location.reload(true); 
+};
+
+
+
+

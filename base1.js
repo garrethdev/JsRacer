@@ -1,61 +1,75 @@
-window.onload = function() {
-  var position = 0,
-  button = document.getElementById("button") 
-  firstTrack = document.querySelectorAll('#racertable>tbody>tr:first-child>td');
-  secondTrack = document.querySelectorAll('#racertable>tbody>tr:nth-child(2)>td');
-
-  function clickFunction (callbackFunction) { 
-    document.onkeydown = function usermovement() {
-      position = (position === firstTrack.length - 1  ? 0 : position + 1);   
-      firstTrack[position].classList.add("active");
-      firstTrack[position >= 0 ? position - 1 : firstTrack.length - 1]
-      .classList.remove("active");
-        if (position === firstTrack.length - 1) { 
-          endGame(true)
-        }
-    }        
-    callbackFunction()
+window.onload = function load () {
+  var game = { 
+    position: 0, 
+    compPosition: 0,
+    secondTrack: function () { 
+      return document.querySelectorAll('#racertable>tbody>tr:nth-child(2)>td');
+    },
+    firstTrack: function () { 
+      return document.querySelectorAll('#racertable>tbody>tr:first-child>td');
+    }, 
+    button: function() { 
+      return document.getElementById("button") 
+    }
   }
-
-  button.onclick = function(){
-    alert("Get ready 3... ")
-    alert("2... ")
-    alert("1... ")
-
-    clickFunction(computerPlayer)
-  } 
 };
 
-var movement = function(track, position, player)  {
-  compPosition = (compPosition === secondTrack.length -1 ? 0 : compPosition + 1 )
-  secondTrack[compPosition].classList.add("active"); 
-  secondTrack[compPosition > 0 ? compPosition -1: secondTrack.length  -1 ]
-  .classList.remove("active")
-  if (compPosition === secondTrack.length - 1) { 
-    endGame()
-  } 
+ 
 
-}
+  game.button().onclick = function(){
+    document.onkeydown = function userPlayer() {
+      if (game.position === 0) { 
 
-var compPosition = 0
-function computerPlayer () { 
-  setInterval(function() { 
-    compPosition = (compPosition === secondTrack.length -1 ? 0 : compPosition + 1 )
-    secondTrack[compPosition].classList.add("active"); 
-    secondTrack[compPosition > 0 ? compPosition -1: secondTrack.length  -1 ]
-    .classList.remove("active")
-      if (compPosition === secondTrack.length - 1) { 
-        endGame()
-      } 
-        
-      }, 200 );
-};
+        computerPlayer()
+      }
+      movement(game.firstTrack(), game.position, "player") 
+    };
 
-endGame = function (isplayer) { 
-  message = isplayer ? "Congrats on Winning the Game!" : "Sorry the Computer bested you this time!"
-  alert(message)
-  location.reload(true); 
-};
+    function computerPlayer () { 
+      setInterval( function () {
+        game.secondTrack()[game.compPosition].classList.remove('active')
+        game.compPosition++
+        game.secondTrack()[game.compPosition].classList.add('active') 
+        if (game.compPosition === game.secondTrack().length - 1) {
+            endgame()
+        }
+      }, 500)
+    } 
+
+  };
+  
+  var movement = function(track, position, type)  {
+    if (type  === "pc") { 
+      game.compPosition++
+      console.log(game.compPosition)
+    } else { 
+      game.position++
+    }
+    track[0].classList.remove('active')
+    track[position].classList.remove("active")
+    position++ 
+    track[position].classList.add("active"); 
+    if (position === track.length - 1) { 
+      endGame(true)
+    } 
+  };
+
+
+  endGame = function (isWinner) { 
+    message = isWinner ? "Congrats on Winning the Game!" : "Sorry the Computer bested you this time!"
+    alert(message)
+    location.reload(true); 
+  };
+
+
+
+
+
+
+
+
+
+
 
 
 

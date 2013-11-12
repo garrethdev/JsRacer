@@ -1,0 +1,28 @@
+
+
+Project Goals: 
+1. Create Project in Javascript 
+2. Add two jquery add-ons 
+3. Create Cool Css based on Wreck it ralph 
+
+
+Release 1 ###
+1. Go over Normalize Css  ###
+2. Get Racer to move one position ###
+3. Figure out td active ###
+
+
+Release 2:
+1. Change Function to accept inputs for position ###
+2. Remove old class active field ###
+3. Refactor  ###
+
+Release 3:
+1. Change to Keyup  ###
+2. Add Computer PLayer ### 
+3. Add Countdown 
+
+Release 4: 
+1. Read on OO Design  
+2. Refactor towards OO Design and Constructor 
+3. Add Countdown
